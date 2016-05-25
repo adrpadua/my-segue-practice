@@ -15,13 +15,31 @@ class OriginVC: UIViewController, DestinationVCDelegate {
 
     @IBOutlet weak var colorView: UIView!
     
+    var currentColor: String = ""
+    
     func setColor(colorName: String) {
-        <#code#>
+        
+        currentColor = colorName
+        
+        switch (colorName) {
+        case "Blue":
+            colorView.backgroundColor = UIColor.blueColor()
+            break
+        case "Red":
+            colorView.backgroundColor = UIColor.redColor()
+            break
+        case "Green":
+            colorView.backgroundColor = UIColor.greenColor()
+            break
+        default:
+            break
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        colorView.backgroundColor = UIColor.grayColor()
         // Do any additional setup after loading the view.
     }
 
@@ -34,8 +52,24 @@ class OriginVC: UIViewController, DestinationVCDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "pickColorSegue" {
             let destination = segue.destinationViewController as! DestinationVC
-            destination.
+            destination.delegate = self
             
+            switch (currentColor) {
+            case "Blue":
+                destination.colorLblText = "was Blue"
+                break
+            case "Red":
+                destination.colorLblText = "was Red"
+                break
+            case "Green":
+                destination.colorLblText = "was Green"
+                break
+            default:
+                break
+            }
+            
+        } else {
+            print("unrecognized segue")
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

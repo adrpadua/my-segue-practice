@@ -16,6 +16,7 @@ protocol DestinationVCDelegate {
 class DestinationVC: UIViewController {
 
     @IBOutlet weak var colorLbl: UILabel!
+    var colorLblText: String = "Pick a Color"
     
     // each instance of DestinationVC has a delegate which will implement setColor(_:)
     // The delegate by default will be nil
@@ -25,6 +26,8 @@ class DestinationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        colorLbl.text = colorLblText
         // Do any additional setup after loading the view.
     }
 
@@ -34,7 +37,12 @@ class DestinationVC: UIViewController {
     }
     
     @IBAction func colorBtnPressed(sender: UIButton!) {
-        
+        if let title = sender.currentTitle {
+            delegate.setColor(title)
+        } else {
+            print("no color selected")
+        }
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
 
     /*
